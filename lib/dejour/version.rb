@@ -1,3 +1,3 @@
 module Dejour
-  VERSION = "1.2.0".freeze
+  VERSION = "0.1"
 end

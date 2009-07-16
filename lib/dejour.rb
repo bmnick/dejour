@@ -2,8 +2,9 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'rubygems'
-require "dnssd"
-require 'meow'
+require 'dnssd'
+#require 'meow' <- lol,OSX!
+require 'ruby-growl'
 
 Thread.abort_on_exception = true
 
@@ -24,8 +25,8 @@ module Dejour
     ['gemjour', "gem server #{reply.name}"]
   }
 
-  def self.find(*names)
-    g = Meow.new('dejour')
+  def self.find(names)
+    g = Growl.new("localhost", "dejour", ["dejour Notification"])
     seen_services = Hash.new { |h,k| h[k] = {} }
     mutex = Mutex.new
     seen_error_msg = false
@@ -41,7 +42,6 @@ module Dejour
         end
       end
     end
-
     services.each { |s| s.instance_variable_get(:@thread).join }
   end
 end

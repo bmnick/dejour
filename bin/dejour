@@ -8,4 +8,8 @@ require File.dirname(__FILE__) + '/../lib/dejour'
 
 service_names = Dejour::KNOWN_SERVICES.keys
 
-Dejour.find(*(ARGV.length > 0 ? ARGV : service_names))
+names = service_names
+names = ARGV if ARGV.length > 0
+puts "Will look for these services:"
+puts "names.inspect: #{names.inspect}"
+Dejour.find(names)
